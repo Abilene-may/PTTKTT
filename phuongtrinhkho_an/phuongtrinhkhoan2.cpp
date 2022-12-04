@@ -1,35 +1,31 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
+#include <cmath>
 #include <iomanip>
 #include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
 using namespace std;
-double p,q,r,s,t,u;
-double output(double x){
-	return (-p*exp(-1*x) - q*sin(x) - r*cos(x) - s*tan(x) - t*x*x - u);
+
+int p, q, r, s, t, u;
+
+double solve(double x) {
+    return (-p * exp(-x) - q * sin(x) - r * cos(x) - s * tan(x) - t * x * x - u);
 }
-bool check(double a, double b){
-	int x = a*100000000, y = b*100000000;
-	if(x == y) return true;
-	return false;
-}
-double solve(double l, double r){
-	if(check(l,r)) return l;
-	double a = output(l), b = output(r),c;
-	double mid = (l+r)/2;
-	c = output(mid);
-	if( c == 0) return mid;
-	if( c * a > 0) return solve(mid, r);
-	return solve(l, mid);
-}
-int main(){
-	//freopen("data.txt","r",stdin);
-	while(cin>>p>>q>>r>>s>>t>>u){
-		double r = solve(0.0,1.0);
-		if((r == 0.0 || r == 1.0) && output(r) != 0.00 ) 
-			printf("No solution\n");
-		else printf("%.4lf\n", r);
-	}
-	return 0;
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    while (cin >> p >> q >> r >> s >> t >> u) {
+        if (solve(0) > 0 || solve(1) < 0) {
+            cout << "No solution" << endl;
+            continue;
+        }
+        double le = 0, ri = 1, mid;
+        while (abs(ri - le) > 1e-15) {
+            mid = (le + ri) / 2;
+            if (solve(mid) >= 0) ri = mid;
+            else le = mid;
+        }
+        cout << fixed << setprecision(4) << le << endl;
+    }
+    return 0;
 }

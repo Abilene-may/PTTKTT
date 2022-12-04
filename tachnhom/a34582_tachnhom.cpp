@@ -5,14 +5,14 @@ using namespace std;
 
 const int N=1e4;
 int id[N];
-int size[N];
+int sz[N];
 int count=1;
 int lead[N];
 
 void Create(int n){
     for (int i=0;i<n;i++){
         id[i]=i;
-        size[i]=1;
+        sz[i]=1;
         lead[i]=N;
         
     }
@@ -42,7 +42,7 @@ void Union(int p, int q){
         count++;
         id[qid]=pid;
         if(p!=q) 
-            size[pid]+=size[qid];
+            sz[pid]+=sz[qid];
         return;
     }
     
@@ -52,13 +52,13 @@ void Union(int p, int q){
     if (lead[pid]<lead[qid]){
         lead[qid]=N;
         id[qid]=pid;
-        size[pid]+=size[qid];
+        sz[pid]+=sz[qid];
 
     }
     else{    
         lead[pid]=N;
         id[pid]=qid;
-        size[qid]+=size[pid];
+        sz[qid]+=sz[pid];
     }
         
         
@@ -96,7 +96,7 @@ int main(){
 
     for(int i=0;i<N;i++){
         if (lead[i]!=N)
-            cout<<Name.find(i)->second<<" "<<size[i]<<endl;
+            cout<<Name.find(i)->second<<" "<<sz[i]<<endl;
     }
 
     
