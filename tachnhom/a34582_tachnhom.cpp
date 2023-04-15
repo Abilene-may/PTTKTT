@@ -2,7 +2,6 @@
 #include<map>
 #include<string>
 using namespace std;
-
 const int N=1e4;
 int id[N];
 int sz[N];
@@ -13,8 +12,7 @@ void Create(int n){
     for (int i=0;i<n;i++){
         id[i]=i;
         sz[i]=1;
-        lead[i]=N;
-        
+        lead[i]=N;    
     }
 }
 
@@ -23,16 +21,11 @@ int Root(int n){
         id[n]=id[id[n]];
         n=id[n];
     }
-    return n;
-    
+    return n; 
 }
-
-
 bool Check(int p,int q){
     return Root(p)==Root(q);
 }
-
-
 void Union(int p, int q){
     int pid=Root(p);
     int qid=Root(q);
@@ -47,23 +40,16 @@ void Union(int p, int q){
     }
     
     if(pid==qid) return;
-
-
     if (lead[pid]<lead[qid]){
         lead[qid]=N;
         id[qid]=pid;
         sz[pid]+=sz[qid];
-
     }
     else{    
         lead[pid]=N;
         id[pid]=qid;
         sz[qid]+=sz[pid];
-    }
-        
-        
-
-    
+    }   
 }
 int main(){
     int F;
@@ -98,24 +84,4 @@ int main(){
         if (lead[i]!=N)
             cout<<Name.find(i)->second<<" "<<sz[i]<<endl;
     }
-
-    
-
-    
-
-
-    
-    
-
-    
-
-
-    
-
-
-
-
-
-
-
 }
